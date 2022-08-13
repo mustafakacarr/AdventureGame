@@ -7,21 +7,28 @@ public class Player {
     private String name;
     private String charName;
     private Scanner keyboard = new Scanner(System.in);
+    private Inventory inventory;
 
 
     public Player(String name) {
         this.setName(name);
+        this.setInventory(new Inventory());
     }
 
+    public void printInfo() {
+        System.out.println("Silahınız : " + getInventory().getWeapon().getName() +
+                " \t\t Hasarınız: " + getDamage() +
+                " \t\t Sağlığınız: " +getHealth());
+    }
 
     public void selectChar() {
         Character[] characters = new Character[]{new Samurai(), new Archer(), new Knight()};
 
-        System.out.println("Lütfen Karakter Seçiniz");
+        System.out.println("Lütfen Seçmek İstediğiniz Karakterin ID'sini yazınız.");
         System.out.println("---------------------------------------------");
         for (Character character : characters) {
             System.out.println(character.getId() + "-) " +
-                      character.getName() + " " +
+                    character.getName() + " " +
                     "\t\t Hasar: " + character.getDamage() + " " +
                     "\t\t Sağlık: " + character.getHealth() + " " +
                     "\t\t Para: " + character.getMoney());
@@ -29,11 +36,21 @@ public class Player {
         System.out.println("---------------------------------------------");
         int selectedChar = keyboard.nextInt();
         initCharacter(characters[selectedChar - 1]);
-        System.out.println("Seçtiğiniz karakter:  "+
-                 this.getCharName() + " " +
+        System.out.println("Seçtiğiniz karakter:  " +
+                this.getCharName() + " " +
                 "\t\t Hasar: " + this.getDamage() + " " +
                 "\t\t Sağlık: " + this.getHealth() + " " +
                 "\t\t Para: " + this.getMoney());
+    }
+
+    public boolean selectLocation() {
+        Location[] locations = new Location[]{new SafeHouse(this), new ToolStore(this)};
+        System.out.println("Bölgeler");
+        System.out.println("1-) Güvenli Ev -> Burası güvenlidir, düşman giremez.");
+        System.out.println("2-) Mağaza -> Buradan silah veya zırh satın alabilirsiniz.");
+        System.out.println("Lütfen gitmek istediğiniz lokasyonun ID'sini yazınız.");
+        int selectedLoc = keyboard.nextInt();
+        return locations[selectedLoc - 1].onLocation();
     }
 
     public void initCharacter(Character character) {
@@ -45,7 +62,8 @@ public class Player {
     }
 
     public int getDamage() {
-        return damage;
+        return damage+ getInventory().getWeapon().getDamage();
+        //Bu sayede bir kullanıcı aynı silahtan birden fazla alsa bile hasarı artmıyor.
     }
 
     public void setDamage(int damage) {
@@ -82,5 +100,13 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }
