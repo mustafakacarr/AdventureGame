@@ -18,7 +18,10 @@ public class Player {
     public void printInfo() {
         System.out.println("Silahınız : " + getInventory().getWeapon().getName() +
                 " \t\t Hasarınız: " + getDamage() +
-                " \t\t Sağlığınız: " +getHealth());
+                "\t\t Zırhınız: " + getInventory().getArmor().getName() +
+                "\t\t Zırh Koruması: " + getInventory().getArmor().getBlock() +
+                "\t\t Paranız: " + getMoney() +
+                " \t\t Sağlığınız: " + getHealth());
     }
 
     public void selectChar() {
@@ -48,9 +51,17 @@ public class Player {
         System.out.println("Bölgeler");
         System.out.println("1-) Güvenli Ev -> Burası güvenlidir, düşman giremez.");
         System.out.println("2-) Mağaza -> Buradan silah veya zırh satın alabilirsiniz.");
+        System.out.println("3-) Oyunu Bitir");
         System.out.println("Lütfen gitmek istediğiniz lokasyonun ID'sini yazınız.");
         int selectedLoc = keyboard.nextInt();
-        return locations[selectedLoc - 1].onLocation();
+        if (selectedLoc != 3) {
+            return locations[selectedLoc - 1].onLocation();
+
+        }else {
+            System.out.println("Oyun Bitti!");
+            return false;
+        }
+
     }
 
     public void initCharacter(Character character) {
@@ -62,7 +73,7 @@ public class Player {
     }
 
     public int getDamage() {
-        return damage+ getInventory().getWeapon().getDamage();
+        return damage + getInventory().getWeapon().getDamage();
         //Bu sayede bir kullanıcı aynı silahtan birden fazla alsa bile hasarı artmıyor.
     }
 
