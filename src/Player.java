@@ -47,16 +47,18 @@ public class Player {
     }
 
     public boolean selectLocation() {
-        Location[] locations = new Location[]{new SafeHouse(this), new ToolStore(this)};
+        Location[] locations = new Location[]{new SafeHouse(this), new ToolStore(this),new Cave(this),new Forest(this),new River(this)};
         System.out.println("Bölgeler");
         System.out.println("1-) Güvenli Ev -> Burası güvenlidir, düşman giremez.");
-        System.out.println("2-) Mağaza -> Buradan silah veya zırh satın alabilirsiniz.");
-        System.out.println("3-) Oyunu Bitir");
+        System.out.println("2-) Eşya Dükkanı -> Buradan silah veya zırh satın alabilirsiniz.");
+        System.out.println("3-) Mağara -> Canavar Çıkabilir!");
+        System.out.println("4-) Orman -> Canavar Çıkabilir!");
+        System.out.println("5-) Nehir -> Canavar Çıkabilir!");
+        System.out.println("0-) Oyunu Bitir");
         System.out.println("Lütfen gitmek istediğiniz lokasyonun ID'sini yazınız.");
         int selectedLoc = keyboard.nextInt();
-        if (selectedLoc != 3) {
+        if (selectedLoc != 0) {
             return locations[selectedLoc - 1].onLocation();
-
         }else {
             System.out.println("Oyun Bitti!");
             return false;
