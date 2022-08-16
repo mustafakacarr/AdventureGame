@@ -17,7 +17,7 @@ public class Player {
 
     public void printInfo() {
         System.out.println("Silahınız : " + getInventory().getWeapon().getName() +
-                " \t\t Hasarınız: " + getDamage() +
+                " \t\t Hasarınız: " + getTotalDamage() +
                 "\t\t Zırhınız: " + getInventory().getArmor().getName() +
                 "\t\t Zırh Koruması: " + getInventory().getArmor().getBlock() +
                 "\t\t Paranız: " + getMoney() +
@@ -75,8 +75,10 @@ public class Player {
     }
 
     public int getDamage() {
+        return damage;
+    }
+    public int getTotalDamage(){
         return damage + getInventory().getWeapon().getDamage();
-        //Bu sayede bir kullanıcı aynı silahtan birden fazla alsa bile hasarı artmıyor.
     }
 
     public void setDamage(int damage) {

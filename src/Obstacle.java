@@ -3,14 +3,16 @@ public class Obstacle  {
     private int health;
     private int damage;
     private String name;
+    private int award;
     //   private int maxObstacle;
 
 
-    public Obstacle(int id, int health, int damage, String name) {
+    public Obstacle(int id, int health, int damage, String name,int award) {
         this.setId(id);
         this.setHealth(health);
         this.setDamage(damage);
         this.setName(name);
+        this.setAward(award);
     }
 
     public int getId() {
@@ -43,5 +45,13 @@ public class Obstacle  {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
     }
 }
