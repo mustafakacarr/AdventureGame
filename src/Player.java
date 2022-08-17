@@ -6,6 +6,7 @@ public class Player {
     private int money;
     private String name;
     private String charName;
+    private int defaultHealth;
     private Scanner keyboard = new Scanner(System.in);
     private Inventory inventory;
 
@@ -47,7 +48,7 @@ public class Player {
     }
 
     public boolean selectLocation() {
-        Location[] locations = new Location[]{new SafeHouse(this), new ToolStore(this),new Cave(this),new Forest(this),new River(this)};
+        Location[] locations = new Location[]{new SafeHouse(this), new ToolStore(this), new Cave(this), new Forest(this), new River(this)};
         System.out.println("Bölgeler");
         System.out.println("1-) Güvenli Ev -> Burası güvenlidir, düşman giremez.");
         System.out.println("2-) Eşya Dükkanı -> Buradan silah veya zırh satın alabilirsiniz.");
@@ -59,7 +60,7 @@ public class Player {
         int selectedLoc = keyboard.nextInt();
         if (selectedLoc != 0) {
             return locations[selectedLoc - 1].onLocation();
-        }else {
+        } else {
             System.out.println("Oyun Bitti!");
             return false;
         }
@@ -71,13 +72,15 @@ public class Player {
         setDamage(character.getDamage());
         setHealth(character.getHealth());
         setMoney(character.getMoney());
+        setDefaultHealth(getHealth());
 
     }
 
     public int getDamage() {
         return damage;
     }
-    public int getTotalDamage(){
+
+    public int getTotalDamage() {
         return damage + getInventory().getWeapon().getDamage();
     }
 
@@ -123,5 +126,13 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getDefaultHealth() {
+        return defaultHealth;
+    }
+
+    public void setDefaultHealth(int defaultHealth) {
+        this.defaultHealth = defaultHealth;
     }
 }

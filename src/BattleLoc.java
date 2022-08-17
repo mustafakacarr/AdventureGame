@@ -21,9 +21,12 @@ public abstract class BattleLoc extends Location {
         if (selectAction.equalsIgnoreCase("S")) {
             if (combat(obstNumber)) {
                 System.out.println("Kazandınız. Ödülünüz hesabınıza tanımlandı");
-                getPlayer().setMoney(getObstacle().getAward());
+                getPlayer().setMoney(getPlayer().getMoney()+getObstacle().getAward());
                 playerStats();
                 return true;
+            }else {
+                System.out.println("Öldünüz");
+                return false;
             }
 
         }
@@ -57,11 +60,14 @@ public abstract class BattleLoc extends Location {
                     playerStats();
                     obstStats();
                 } else {
-
-                    System.out.println("Kaçan kovalanır.");
+                    System.out.println("Canavardan kaçtınız. ");
+                    System.out.println("Son durumdaki bilgileriniz; ");
+                    getPlayer().printInfo();
                     return false;
 
                 }
+            }    if(this.getPlayer().getHealth() < this.getObstacle().getHealth()){
+                return false;
             }
 
             getObstacle().setHealth(obstDefaultHealth);
